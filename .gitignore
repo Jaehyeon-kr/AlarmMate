@@ -1,0 +1,7 @@
+.git.bak*/
+.git-backups/
+
+# Ignore asset catalogs and mlpackage contents that cause indexing errors
+AlarmMate/PS_AR/PS_AR/Assets.xcassets/
+AlarmMate/PS_AR/PS_AR/*.mlpackage/
+AlarmMate/PS_AR/PS_AR/**/*.imageset/
