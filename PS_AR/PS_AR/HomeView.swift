@@ -171,7 +171,7 @@ struct HomeView: View {
     @AppStorage("selectedGame") var selectedGame: String = "TapGame"
     @State private var todos: [String] = []
 
-    @EnvironmentObject var schemeManager: ColorSchemeManager=
+    @EnvironmentObject var schemeManager: ColorSchemeManager
 
     @State private var showRinging = false   // ← 기존 것 유지
     @State private var showAlarmScreen = false  // ← ★ 추가됨 (오류 해결)
@@ -217,6 +217,15 @@ struct HomeView: View {
             "Sat": "토",
             "Sun": "일"
         ][en] ?? "월"
+    }
+    func toggleDarkMode() {
+        withAnimation(.easeInOut) {
+            if schemeManager.scheme == .dark {
+                schemeManager.scheme = .light
+            } else {
+                schemeManager.scheme = .dark
+            }
+        }
     }
 
     @ViewBuilder
@@ -355,13 +364,15 @@ struct HomeView: View {
                         Spacer()
                         Button(action: toggleDarkMode) {
                             Image(systemName: schemeManager.scheme == .dark ? "sun.max.fill" : "moon.fill")
-                                .font(.largeTitle)
-                                .padding()
-                                .background(Color.black.opacity(0.5))
+                                .font(.system(size: 20))           // ← 아이콘 크기 축소
                                 .foregroundColor(.white)
+                                .padding(10)                        // ← 버튼 전체 크기 줄임
+                                .background(Color.black.opacity(0.5))
                                 .clipShape(Circle())
-                                .padding()
+                                .shadow(color: .black.opacity(0.3), radius: 2, x: 0, y: 1)
                         }
+                        .padding(.trailing, 18)
+                        .padding(.bottom, 32)
                     }
                 }
                 .ignoresSafeArea()
